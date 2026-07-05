@@ -2030,7 +2030,7 @@
         activeChatId: null,
         assets: [],
         customRules: "",
-        geminiApiKey: "AQ.Ab8RN6KTCWjmbTc53ECadYt7wucO8xTUQinlwUu1SI8sRkcCAA", // <-- Ganti teks ini dengan API Key kamu dari Google AI Studio (diawali dengan AIzaSy...)
+        geminiApiKey: "AQ.Ab8RN6LfDkuPtVa0XWy6OvX3Di-hYvSx8vjhRHwIOVVUBFyw1g", // <-- Ganti teks ini dengan API Key kamu dari Google AI Studio (diawali dengan AIzaSy...)
         pendingAttachments: [],
         isRecording: false,
         recognition: null,
@@ -2483,6 +2483,13 @@
         bubble.innerHTML = inner;
 
         const wrapper = document.createElement("div");
+        // Tambahkan style flex agar pembungkus tahu arah alirannya dan tidak menyusut ekstrem
+        wrapper.style.display = "flex";
+        wrapper.style.flexDirection = "column";
+        wrapper.style.alignItems =
+          msg.role === "user" ? "flex-end" : "flex-start";
+        wrapper.style.minWidth = "0"; // Mencegah flex child meluap atau menyusut aneh
+
         wrapper.appendChild(bubble);
         const meta = document.createElement("div");
         meta.className = "msg-meta";
