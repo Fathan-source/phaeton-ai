@@ -2582,17 +2582,22 @@
       // simple patterns for code blocks / inline code / bold.
       // Minimal, safe markdown-ish rendering: escapes HTML first, then applies
       // simple patterns for code blocks / inline code / bold.
+      // Minimal, safe markdown-ish rendering: escapes HTML first, then applies
+      // simple patterns for code blocks / inline code / bold.
       function renderMarkdownLite(text) {
         let safe = escapeHTML(text);
 
-        // Perbaikan Elite: Render Code Block dengan Fitur Download File
+        // Perbaikan Elite (Unicode-Safe): Render Code Block dengan Fitur Download File
         safe = safe.replace(/```(\w*)\n([\s\S]*?)```/g, (m, lang, code) => {
           const language = lang.trim() || "txt";
           const fileExtension = getExtByLang(language);
           const fileName = `phaeton_code.${fileExtension}`;
 
-          // Loloskan string kode agar aman dikirim ke fungsi JavaScript melalui atribut onclick
-          const base64Code = btoa(unescape(encodeURIComponent(code.trim())));
+          // --- PERBAIKAN DI SINI: Cara enkripsi Base64 yang aman untuk teks Unicode/Emoji/Karakter Khusus ---
+          const codeTrimmed = code.trim();
+          const encoder = new TextEncoder();
+          const data = encoder.encode(codeTrimmed);
+          const base64Code = btoa(String.fromCharCode(...data));
 
           return `
               <div class="code-block-container" style="position: relative; margin: 12px 0; background: #000; border-radius: 10px; border: 1px solid var(--ink-08); overflow: hidden;">
@@ -2602,7 +2607,7 @@
                     <i class="fa-solid fa-download"></i> Unduh File
                   </button>
                 </div>
-                <pre style="margin: 0; padding: 12px; overflow-x: auto; font-size: 12.5px; border: none; background: transparent; color: #eee;">${code.trim()}</pre>
+                <pre style="margin: 0; padding: 12px; overflow-x: auto; font-size: 12.5px; border: none; background: transparent; color: #eee;">${codeTrimmed}</pre>
               </div>
             `;
         });
