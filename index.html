@@ -1993,18 +1993,18 @@
 
     <script>
       /* =====================================================================
-   PHAETON — APP LOGIC
-   All state lives in memory (no localStorage), since this document can
-   also run inside sandboxed artifact viewers that disallow web storage.
-   Reload the page to reset to a fresh demo state.
-   ===================================================================== */
+         PHAETON — APP LOGIC
+         All state lives in memory (no localStorage), since this document can
+         also run inside sandboxed artifact viewers that disallow web storage.
+         Reload the page to reset to a fresh demo state.
+         ===================================================================== */
 
       /* ---------------------------------------------------------------------
-   1. SYSTEM RULES per mode (kept exactly as specified in the brief).
-   In a real backend integration, `getEffectiveSystemPrompt()` below is
-   the single place you would send this string as the `system` field
-   of your LLM API call (e.g. Anthropic Messages API).
-   --------------------------------------------------------------------- */
+         1. SYSTEM RULES per mode (kept exactly as specified in the brief).
+         In a real backend integration, `getEffectiveSystemPrompt()` below is
+         the single place you would send this string as the `system` field
+         of your LLM API call (e.g. Anthropic Messages API).
+         --------------------------------------------------------------------- */
       const MODE_RULES = {
         biasa:
           "Kamu adalah Phaeton, asisten AI yang ramah, ringkas, dan sangat membantu. Jawab pertanyaan dengan bahasa yang santai namun sopan, berikan informasi yang langsung pada intinya tanpa bertele-tele.",
@@ -2029,8 +2029,8 @@
       }
 
       /* ---------------------------------------------------------------------
-   2. APPLICATION STATE
-   --------------------------------------------------------------------- */
+         2. APPLICATION STATE
+         --------------------------------------------------------------------- */
       let state = {
         loggedIn: false,
         user: { name: "Fathan", email: "fathan@gmail.com", initial: "F" },
@@ -2047,12 +2047,12 @@
       let assetIdCounter = 0;
 
       /* ---------------------------------------------------------------------
-   3. LOGIN FLOW — Firebase Authentication (Google Sign-In) asli.
-   Memantau status login secara real-time lewat onAuthStateChanged, dengan
-   fallback signInWithRedirect saat popup diblokir browser, dan pesan error
-   yang jelas untuk setiap kemungkinan kegagalan (domain belum diizinkan,
-   API key salah, dst).
-   --------------------------------------------------------------------- */
+         3. LOGIN FLOW — Firebase Authentication (Google Sign-In) asli.
+         Memantau status login secara real-time lewat onAuthStateChanged, dengan
+         fallback signInWithRedirect saat popup diblokir browser, dan pesan error
+         yang jelas untuk setiap kemungkinan kegagalan (domain belum diizinkan,
+         API key salah, dst).
+         --------------------------------------------------------------------- */
       function showGateError(message) {
         const box = document.getElementById("gate-error-box");
         if (box) {
@@ -2263,8 +2263,8 @@
       }
 
       /* ---------------------------------------------------------------------
-   4. SIDEBAR — collapsible on mobile, fixed on desktop
-   --------------------------------------------------------------------- */
+         4. SIDEBAR — collapsible on mobile, fixed on desktop
+         --------------------------------------------------------------------- */
       function toggleSidebar() {
         document.getElementById("sidebar").classList.toggle("open");
         document.getElementById("sidebar-overlay").classList.toggle("show");
@@ -2275,8 +2275,8 @@
       }
 
       /* ---------------------------------------------------------------------
-   5. CHAT SESSION MANAGEMENT
-   --------------------------------------------------------------------- */
+         5. CHAT SESSION MANAGEMENT
+         --------------------------------------------------------------------- */
       function createNewChat() {
         const chat = {
           id: ++chatIdCounter,
@@ -2354,9 +2354,9 @@
               "chat-item" + (chat.id === state.activeChatId ? " active" : "");
             item.onclick = () => switchChat(chat.id);
             item.innerHTML = `
-        <i class="fa-regular fa-message"></i>
-        <span>${escapeHTML(chat.title)}</span>
-        <i class="fa-solid fa-trash del-btn" onclick="deleteChat(${chat.id}, event)"></i>`;
+              <i class="fa-regular fa-message"></i>
+              <span>${escapeHTML(chat.title)}</span>
+              <i class="fa-solid fa-trash del-btn" onclick="deleteChat(${chat.id}, event)"></i>`;
             list.appendChild(item);
           });
         };
@@ -2365,8 +2365,8 @@
       }
 
       /* ---------------------------------------------------------------------
-   6. MODE / MODEL SWITCHING
-   --------------------------------------------------------------------- */
+         6. MODE / MODEL SWITCHING
+         --------------------------------------------------------------------- */
       const MODE_SHORT_LABELS = {
         biasa: "Biasa",
         coding: "Ahli Coding",
@@ -2417,8 +2417,8 @@
       });
 
       /* ---------------------------------------------------------------------
-   6b. ATTACH "+" MENU
-   --------------------------------------------------------------------- */
+         6b. ATTACH "+" MENU
+         --------------------------------------------------------------------- */
       function toggleAttachMenu() {
         document.getElementById("attach-menu").classList.toggle("show");
         document.getElementById("attach-plus-btn").classList.toggle("open");
@@ -2435,8 +2435,8 @@
       });
 
       /* ---------------------------------------------------------------------
-   7. RENDERING THE ACTIVE CHAT FEED
-   --------------------------------------------------------------------- */
+         7. RENDERING THE ACTIVE CHAT FEED
+         --------------------------------------------------------------------- */
       function renderActiveChat() {
         const chat = getActiveChat();
         const feed = document.getElementById("feed-inner");
@@ -2450,16 +2450,16 @@
 
         if (chat.messages.length === 0) {
           feed.innerHTML = `
-      <div class="empty-state" id="empty-state">
-        <div class="mark">Ph</div>
-        <h2>Halo, aku Phaeton</h2>
-        <p>Tanyakan apa saja — dari obrolan santai, debugging kode, sampai analisis mendalam. Pilih mode di kanan atas sesuai kebutuhanmu.</p>
-        <div class="suggestion-row">
-          <div class="suggestion-chip" onclick="useSuggestion(this)">Jelaskan konsep async/await</div>
-          <div class="suggestion-chip" onclick="useSuggestion(this)">Rangkum tren AI minggu ini</div>
-          <div class="suggestion-chip" onclick="useSuggestion(this)">Review arsitektur REST API-ku</div>
-        </div>
-      </div>`;
+            <div class="empty-state" id="empty-state">
+              <div class="mark">Ph</div>
+              <h2>Halo, aku Phaeton</h2>
+              <p>Tanyakan apa saja — dari obrolan santai, debugging kode, sampai analisis mendalam. Pilih mode di kanan atas sesuai kebutuhanmu.</p>
+              <div class="suggestion-row">
+                <div class="suggestion-chip" onclick="useSuggestion(this)">Jelaskan konsep async/await</div>
+                <div class="suggestion-chip" onclick="useSuggestion(this)">Rangkum tren AI minggu ini</div>
+                <div class="suggestion-chip" onclick="useSuggestion(this)">Review arsitektur REST API-ku</div>
+              </div>
+            </div>`;
           return;
         }
 
@@ -2469,37 +2469,96 @@
       }
 
       function buildMessageEl(msg) {
-        const row = document.createElement("div");
-        row.className = "msg-row " + (msg.role === "user" ? "user" : "ai");
+        // ... (kode awal fungsi kamu) ...
 
-        const avatar = document.createElement("div");
-        avatar.className = "msg-avatar";
-        avatar.textContent =
-          msg.role === "user" ? state.user.initial || "U" : "Ph";
+        const wrapper = document.createElement("div");
+        wrapper.style.display = "flex";
+        wrapper.style.flexDirection = "column";
+        wrapper.style.alignItems =
+          msg.role === "user" ? "flex-end" : "flex-start";
+        wrapper.style.flex = "1";
+        wrapper.style.minWidth = "0";
 
+        // 1. Buat kontainer bubble chat seperti biasa
         const bubble = document.createElement("div");
-        bubble.className = "msg-bubble";
+        bubble.className = `msg-bubble ${msg.role}`;
 
-        let inner = "";
-        if (msg.attachments && msg.attachments.length) {
-          msg.attachments.forEach((att) => {
-            inner += attachmentChipHTML(att);
-            inner += "<br>";
-          });
+        // Berikan posisi relatif pada bubble agar posisi tombol salin bisa diatur dengan presisi
+        bubble.style.position = "relative";
+
+        // 2. Isi konten teks/HTML ke dalam bubble
+        const textEl = document.createElement("div");
+        textEl.innerHTML = formatMarkdown(msg.content); // atau msg.text sesuai variabelmu
+        bubble.appendChild(textEl);
+
+        // 3. FITUR BARU: Tambahkan tombol salin KHUSUS untuk perintah/pesan dari USER
+        if (msg.role === "user") {
+          const copyBtn = document.createElement("button");
+          // Menggunakan icon SVG salin yang bersih dan modern
+          copyBtn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          `;
+
+          // Styling tombol lewat JavaScript agar tidak merusak file CSS yang sudah ada
+          copyBtn.style.position = "absolute";
+          copyBtn.style.top = "4px";
+          copyBtn.style.right = "4px";
+          copyBtn.style.background = "rgba(255, 255, 255, 0.15)";
+          copyBtn.style.border = "none";
+          copyBtn.style.borderRadius = "4px";
+          copyBtn.style.color = "#fff";
+          copyBtn.style.padding = "4px";
+          copyBtn.style.cursor = "pointer";
+          copyBtn.style.display = "flex";
+          copyBtn.style.alignItems = "center";
+          copyBtn.style.transition = "background 0.2s";
+          copyBtn.title = "Salin perintah";
+
+          // Efek hover sederhana
+          copyBtn.onmouseenter = () =>
+            (copyBtn.style.background = "rgba(255, 255, 255, 0.3)");
+          copyBtn.onmouseleave = () =>
+            (copyBtn.style.background = "rgba(255, 255, 255, 0.15)");
+
+          // Logika fungsionalitas salin (Clipboard API)
+          copyBtn.onclick = function () {
+            navigator.clipboard
+              .writeText(msg.content)
+              .then(() => {
+                // Efek visual sukses saat berhasil disalin
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              `;
+                copyBtn.style.background = "rgba(74, 222, 128, 0.2)";
+
+                // Kembalikan ke icon semula setelah 1.5 detik
+                setTimeout(() => {
+                  copyBtn.innerHTML = originalHTML;
+                  copyBtn.style.background = "rgba(255, 255, 255, 0.15)";
+                }, 1500);
+              })
+              .catch((err) => {
+                console.error("Gagal menyalin teks: ", err);
+              });
+          };
+
+          // Masukkan tombol ke dalam bubble chat user
+          bubble.appendChild(copyBtn);
+
+          // Beri sedikit padding kanan pada teks agar tidak tertutup oleh tombol salin
+          textEl.style.paddingRight = "24px";
         }
-        inner += renderMarkdownLite(msg.text);
-        bubble.innerHTML = inner;
-
-     // --- CARI BAGIAN INI DI FUNGSI buildMessageEl ---
-      const wrapper = document.createElement("div");
-      // Perbaikan Programmer Elite: Ganti/Tambahkan properti flex agar bubble chat tidak menyusut vertikal
-      wrapper.style.display = "flex";
-      wrapper.style.flexDirection = "column";
-      wrapper.style.alignItems = msg.role === "user" ? "flex-end" : "flex-start";
-      wrapper.style.flex = "1";       /* Mengizinkan kontainer mengambil ruang yang tersedia */
-      wrapper.style.minWidth = "0";   /* Mencegah overflow keluar layar */
 
         wrapper.appendChild(bubble);
+
+        // ... (kode sisa fungsi penempelan timestamp / return element kamu) ...
+
         const meta = document.createElement("div");
         meta.className = "msg-meta";
         meta.textContent =
@@ -2521,15 +2580,87 @@
 
       // Minimal, safe markdown-ish rendering: escapes HTML first, then applies
       // simple patterns for code blocks / inline code / bold.
+      // Minimal, safe markdown-ish rendering: escapes HTML first, then applies
+      // simple patterns for code blocks / inline code / bold.
       function renderMarkdownLite(text) {
         let safe = escapeHTML(text);
-        safe = safe.replace(
-          /```([\s\S]*?)```/g,
-          (m, code) => `<pre>${code.trim()}</pre>`,
-        );
+
+        // Perbaikan Elite: Render Code Block dengan Fitur Download File
+        safe = safe.replace(/```(\w*)\n([\s\S]*?)```/g, (m, lang, code) => {
+          const language = lang.trim() || "txt";
+          const fileExtension = getExtByLang(language);
+          const fileName = `phaeton_code.${fileExtension}`;
+
+          // Loloskan string kode agar aman dikirim ke fungsi JavaScript melalui atribut onclick
+          const base64Code = btoa(unescape(encodeURIComponent(code.trim())));
+
+          return `
+              <div class="code-block-container" style="position: relative; margin: 12px 0; background: #000; border-radius: 10px; border: 1px solid var(--ink-08); overflow: hidden;">
+                <div class="code-block-header" style="display: flex; justify-content: space-between; align-items: center; background: #111; padding: 6px 12px; border-bottom: 1px solid var(--ink-08); font-size: 12px; color: var(--ink-dim);">
+                  <span><i class="fa-solid fa-code" style="margin-right: 6px; color: var(--primary);"></i>${language.toUpperCase()}</span>
+                  <button class="btn-download-code" onclick="downloadGeneratedFile('${base64Code}', '${fileName}')" style="background: var(--bg-card); border: 1px solid var(--ink-14); color: var(--ink); border-radius: 5px; padding: 4px 8px; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.15s ease;">
+                    <i class="fa-solid fa-download"></i> Unduh File
+                  </button>
+                </div>
+                <pre style="margin: 0; padding: 12px; overflow-x: auto; font-size: 12.5px; border: none; background: transparent; color: #eee;">${code.trim()}</pre>
+              </div>
+            `;
+        });
+
         safe = safe.replace(/`([^`]+)`/g, "<code>$1</code>");
         safe = safe.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
         return safe;
+      }
+      // Fungsi untuk mengunduh kode yang di-generate AI menjadi sebuah file fisik
+      function downloadGeneratedFile(base64Data, fileName) {
+        try {
+          // Decode data kembali dari Base64
+          const decodedText = decodeURIComponent(escape(atob(base64Data)));
+
+          // Buat blob objek teks biasa dengan encoding UTF-8
+          const blob = new Blob([decodedText], {
+            type: "text/plain;charset=utf-8",
+          });
+          const url = URL.createObjectURL(blob);
+
+          // Trigger download menggunakan elemen anchor tersembunyi
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+
+          // Bersihkan memory rapi secara elite
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          showToast(`File ${fileName} berhasil diunduh!`);
+        } catch (error) {
+          console.error("Gagal mengunduh file:", error);
+          showToast("Gagal memproses unduhan file.");
+        }
+      }
+
+      // Helper untuk mendeteksi ekstensi file berdasarkan tag bahasa markdown
+      function getExtByLang(lang) {
+        const mapping = {
+          html: "html",
+          css: "css",
+          javascript: "js",
+          js: "js",
+          typescript: "ts",
+          ts: "ts",
+          python: "py",
+          py: "py",
+          php: "php",
+          json: "json",
+          sql: "sql",
+          bash: "sh",
+          sh: "sh",
+          markdown: "md",
+          md: "md",
+        };
+        return mapping[lang.toLowerCase()] || "txt";
       }
       function escapeHTML(str) {
         const div = document.createElement("div");
@@ -2544,11 +2675,11 @@
       }
 
       /* ---------------------------------------------------------------------
-   8. SENDING MESSAGES + SIMULATED AI RESPONSE
-   Replace `simulateAIResponse()` with a real fetch() call to your
-   backend / Anthropic API using getEffectiveSystemPrompt(chat.mode)
-   as the system prompt for a production integration.
-   --------------------------------------------------------------------- */
+         8. SENDING MESSAGES + SIMULATED AI RESPONSE
+         Replace `simulateAIResponse()` with a real fetch() call to your
+         backend / Anthropic API using getEffectiveSystemPrompt(chat.mode)
+         as the system prompt for a production integration.
+         --------------------------------------------------------------------- */
       function autoGrow(el) {
         el.style.height = "auto";
         el.style.height = Math.min(el.scrollHeight, 220) + "px";
@@ -2613,8 +2744,8 @@
         row.className = "msg-row ai";
         row.id = "typing-row";
         row.innerHTML = `
-    <div class="msg-avatar">Ph</div>
-    <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+          <div class="msg-avatar">Ph</div>
+          <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
         feed.appendChild(row);
         scrollFeedToBottom();
       }
@@ -2692,9 +2823,9 @@
       }
 
       /* ---------------------------------------------------------------------
-   9. FILE / IMAGE / AUDIO UPLOAD  →  staged as pending attachments,
-   then also pushed into the global Asset Gallery on send.
-   --------------------------------------------------------------------- */
+         9. FILE / IMAGE / AUDIO UPLOAD  →  staged as pending attachments,
+         then also pushed into the global Asset Gallery on send.
+         --------------------------------------------------------------------- */
       function handleFileUpload(evt, kind) {
         const file = evt.target.files[0];
         if (!file) return;
@@ -2782,15 +2913,15 @@
         const body = document.getElementById("asset-modal-body");
         if (asset.kind === "image") {
           body.innerHTML = `<img class="asset-lightbox-img" src="${asset.url}" alt="${escapeHTML(asset.name)}">
-      <div class="asset-lightbox-meta"><strong>${escapeHTML(asset.name)}</strong><br><span style="font-size:12.5px; color:var(--ink-faint);">Gambar</span></div>`;
+            <div class="asset-lightbox-meta"><strong>${escapeHTML(asset.name)}</strong><br><span style="font-size:12.5px; color:var(--ink-faint);">Gambar</span></div>`;
         } else if (asset.kind === "audio") {
           body.innerHTML = `<div class="asset-lightbox-meta">
-      <audio controls style="width:100%;" src="${asset.url}"></audio>
-      <div style="margin-top:10px;"><strong>${escapeHTML(asset.name)}</strong></div></div>`;
+            <audio controls style="width:100%;" src="${asset.url}"></audio>
+            <div style="margin-top:10px;"><strong>${escapeHTML(asset.name)}</strong></div></div>`;
         } else {
           body.innerHTML = `<div class="asset-lightbox-meta">
-      <i class="fa-solid fa-file-lines" style="font-size:34px; color:var(--primary);"></i>
-      <div style="margin-top:10px;"><strong>${escapeHTML(asset.name)}</strong><br><span style="font-size:12.5px; color:var(--ink-faint);">Dokumen</span></div></div>`;
+            <i class="fa-solid fa-file-lines" style="font-size:34px; color:var(--primary);"></i>
+            <div style="margin-top:10px;"><strong>${escapeHTML(asset.name)}</strong><br><span style="font-size:12.5px; color:var(--ink-faint);">Dokumen</span></div></div>`;
         }
         document.getElementById("asset-modal").classList.add("show");
       }
@@ -2799,11 +2930,11 @@
       }
 
       /* ---------------------------------------------------------------------
-   10. MICROPHONE — VOICE TO TEXT
-   Uses the real browser Web Speech API when available (free, no
-   backend needed). Falls back to a short simulated transcript on
-   browsers without SpeechRecognition support (e.g. Firefox).
-   --------------------------------------------------------------------- */
+         10. MICROPHONE — VOICE TO TEXT
+         Uses the real browser Web Speech API when available (free, no
+         backend needed). Falls back to a short simulated transcript on
+         browsers without SpeechRecognition support (e.g. Firefox).
+         --------------------------------------------------------------------- */
       function toggleMic() {
         const SpeechRecognition =
           window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -2874,8 +3005,8 @@
       }
 
       /* ---------------------------------------------------------------------
-   11. SETTINGS MODAL
-   --------------------------------------------------------------------- */
+         11. SETTINGS MODAL
+         --------------------------------------------------------------------- */
       function openSettings() {
         document.getElementById("custom-rules").value = state.customRules;
         document.getElementById("settings-modal").classList.add("show");
@@ -2909,8 +3040,8 @@
       }
 
       /* ---------------------------------------------------------------------
-   12. TOAST NOTIFICATIONS
-   --------------------------------------------------------------------- */
+         12. TOAST NOTIFICATIONS
+         --------------------------------------------------------------------- */
       let toastTimer = null;
       function showToast(msg) {
         const toast = document.getElementById("toast");
