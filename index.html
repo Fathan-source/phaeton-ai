@@ -131,6 +131,14 @@
         --radius-sm: 8px;
         --sidebar-w: 280px;
       }
+      .msg-row > div:not(.msg-avatar) {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .msg-row.user > div:not(.msg-avatar) {
+        align-items: flex-end;
+      }
 
       * {
         box-sizing: border-box;
@@ -2030,7 +2038,7 @@
         activeChatId: null,
         assets: [],
         customRules: "",
-        geminiApiKey: "AQ.Ab8RN6Lx-rQ8PfTQ7nygD04SjPFnSUps_SLo7qbe99ivMRilFQ", // <-- Ganti teks ini dengan API Key kamu dari Google AI Studio (diawali dengan AIzaSy...)
+        geminiApiKey: "AQ.Ab8RN6LfDkuPtVa0XWy6OvX3Di-hYvSx8vjhRHwIOVVUBFyw1g", // <-- Ganti teks ini dengan API Key kamu dari Google AI Studio (diawali dengan AIzaSy...)
         pendingAttachments: [],
         isRecording: false,
         recognition: null,
