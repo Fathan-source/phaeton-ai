@@ -2490,13 +2490,14 @@
         inner += renderMarkdownLite(msg.text);
         bubble.innerHTML = inner;
 
-        const wrapper = document.createElement("div");
-        // Tambahkan style flex agar pembungkus tahu arah alirannya dan tidak menyusut ekstrem
-        wrapper.style.display = "flex";
-        wrapper.style.flexDirection = "column";
-        wrapper.style.alignItems =
-          msg.role === "user" ? "flex-end" : "flex-start";
-        wrapper.style.minWidth = "0"; // Mencegah flex child meluap atau menyusut aneh
+     // --- CARI BAGIAN INI DI FUNGSI buildMessageEl ---
+      const wrapper = document.createElement("div");
+      // Perbaikan Programmer Elite: Ganti/Tambahkan properti flex agar bubble chat tidak menyusut vertikal
+      wrapper.style.display = "flex";
+      wrapper.style.flexDirection = "column";
+      wrapper.style.alignItems = msg.role === "user" ? "flex-end" : "flex-start";
+      wrapper.style.flex = "1";       /* Mengizinkan kontainer mengambil ruang yang tersedia */
+      wrapper.style.minWidth = "0";   /* Mencegah overflow keluar layar */
 
         wrapper.appendChild(bubble);
         const meta = document.createElement("div");
