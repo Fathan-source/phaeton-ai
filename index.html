@@ -1621,7 +1621,12 @@
             <div class="user-meta">
               <div class="user-name" id="user-name-display">Pengguna</div>
               <div class="user-email" id="user-email-display">
-                <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="572224322517303a363e3b7934383a">[email&#160;protected]</a>
+                <a
+                  href="/cdn-cgi/l/email-protection"
+                  class="__cf_email__"
+                  data-cfemail="572224322517303a363e3b7934383a"
+                  >[email&#160;protected]</a
+                >
               </div>
             </div>
           </div>
@@ -1952,7 +1957,14 @@
             <div class="settings-row">
               <div class="settings-row-text">
                 <div class="t">Nama Akun</div>
-                <div class="d" id="settings-user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9aefe9ffe8dafdf7fbf3f6b4f9f5f7">[email&#160;protected]</a></div>
+                <div class="d" id="settings-user-email">
+                  <a
+                    href="/cdn-cgi/l/email-protection"
+                    class="__cf_email__"
+                    data-cfemail="9aefe9ffe8dafdf7fbf3f6b4f9f5f7"
+                    >[email&#160;protected]</a
+                  >
+                </div>
               </div>
               <span style="font-size: 11.5px; color: var(--ink-faint)"
                 >Google</span
@@ -1991,7 +2003,11 @@
 
     <div id="toast"></div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script>
       /* =====================================================================
          PHAETON — APP LOGIC
          All state lives in memory (no localStorage), while AI responses are
@@ -2041,7 +2057,7 @@
         activeChatId: null,
         assets: [],
         customRules: "",
-        geminiApiKey: "AQ.Ab8RN6LfDkuPtVa0XWy6OvX3Di-hYvSx8vjhRHwIOVVUBFyw1g", // Gemini API key tetap dipertahankan sesuai file asli.
+        geminiApiKey: "AIzaSyArjxUAFCwb_5Lvrgo5Jhy74RHVw4I-35Q", // Gemini API key tetap dipertahankan sesuai file asli.
         geminiModel: "gemini-2.5-flash",
         pendingAttachments: [],
         isRecording: false,
@@ -2545,7 +2561,8 @@
 
         const meta = document.createElement("div");
         meta.className = "msg-meta";
-        meta.textContent = (role === "user" ? "Kamu" : "Phaeton") + " · " + msg.time;
+        meta.textContent =
+          (role === "user" ? "Kamu" : "Phaeton") + " · " + msg.time;
         wrapper.appendChild(meta);
 
         row.appendChild(avatar);
@@ -2568,7 +2585,10 @@
         };
 
         if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(text).then(showSuccess).catch(() => fallbackCopy(text, showSuccess));
+          navigator.clipboard
+            .writeText(text)
+            .then(showSuccess)
+            .catch(() => fallbackCopy(text, showSuccess));
         } else {
           fallbackCopy(text, showSuccess);
         }
@@ -2608,12 +2628,14 @@
       function renderMarkdownLite(text) {
         const raw = String(text || "");
         const codeBlocks = [];
-        const withoutBlocks = raw.replace(/```([^\n`]*)\n([\s\S]*?)```/g, (match, lang, code) => {
-          const language = (lang || "txt").trim() || "txt";
-          const fileExtension = getExtByLang(language);
-          const fileName = `phaeton_code.${fileExtension}`;
-          const base64Code = utf8ToBase64(code.trim());
-          const html = `
+        const withoutBlocks = raw.replace(
+          /```([^\n`]*)\n([\s\S]*?)```/g,
+          (match, lang, code) => {
+            const language = (lang || "txt").trim() || "txt";
+            const fileExtension = getExtByLang(language);
+            const fileName = `phaeton_code.${fileExtension}`;
+            const base64Code = utf8ToBase64(code.trim());
+            const html = `
             <div class="code-block-container" style="position: relative; margin: 12px 0; background: #000; border-radius: 10px; border: 1px solid var(--ink-08); overflow: hidden;">
               <div class="code-block-header" style="display: flex; justify-content: space-between; align-items: center; background: #111; padding: 6px 12px; border-bottom: 1px solid var(--ink-08); font-size: 12px; color: var(--ink-dim);">
                 <span><i class="fa-solid fa-code" style="margin-right: 6px; color: var(--primary);"></i>${escapeHTML(language.toUpperCase())}</span>
@@ -2623,14 +2645,18 @@
               </div>
               <pre style="margin: 0; padding: 12px; overflow-x: auto; font-size: 12.5px; border: none; background: transparent; color: #eee;"><code>${escapeHTML(code.trim())}</code></pre>
             </div>`;
-          codeBlocks.push(html);
-          return `\n@@PHAETON_CODE_BLOCK_${codeBlocks.length - 1}@@\n`;
-        });
+            codeBlocks.push(html);
+            return `\n@@PHAETON_CODE_BLOCK_${codeBlocks.length - 1}@@\n`;
+          },
+        );
 
         let safe = escapeHTML(withoutBlocks);
         safe = safe.replace(/`([^`]+)`/g, "<code>$1</code>");
         safe = safe.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-        safe = safe.replace(/@@PHAETON_CODE_BLOCK_(\d+)@@/g, (m, idx) => codeBlocks[Number(idx)] || "");
+        safe = safe.replace(
+          /@@PHAETON_CODE_BLOCK_(\d+)@@/g,
+          (m, idx) => codeBlocks[Number(idx)] || "",
+        );
         return safe;
       }
 
@@ -2656,7 +2682,9 @@
       function downloadGeneratedFile(base64Data, fileName) {
         try {
           const decodedText = base64ToUtf8(base64Data);
-          const blob = new Blob([decodedText], { type: "text/plain;charset=utf-8" });
+          const blob = new Blob([decodedText], {
+            type: "text/plain;charset=utf-8",
+          });
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
@@ -2772,7 +2800,8 @@
         if (chat.messages.length === 1 && text) {
           chat.title = text.length > 32 ? text.slice(0, 32) + "…" : text;
           renderChatHistory();
-          document.getElementById("chat-title-display").textContent = chat.title;
+          document.getElementById("chat-title-display").textContent =
+            chat.title;
         }
 
         state.pendingAttachments = [];
@@ -2848,10 +2877,14 @@
       function extractGeminiText(data) {
         const candidate = data?.candidates?.[0];
         const parts = candidate?.content?.parts || [];
-        const text = parts.map((p) => p.text || "").join("\n").trim();
+        const text = parts
+          .map((p) => p.text || "")
+          .join("\n")
+          .trim();
         if (text) return text;
 
-        const finishReason = candidate?.finishReason || candidate?.finish_reason;
+        const finishReason =
+          candidate?.finishReason || candidate?.finish_reason;
         if (finishReason) {
           return `Jawaban kosong dari Gemini. Finish reason: ${finishReason}.`;
         }
@@ -2900,7 +2933,11 @@
           contents,
           generationConfig: {
             temperature:
-              chat.mode === "coding" ? 0.25 : chat.mode === "mendalam" ? 0.55 : 0.7,
+              chat.mode === "coding"
+                ? 0.25
+                : chat.mode === "mendalam"
+                  ? 0.55
+                  : 0.7,
             topP: 0.95,
             maxOutputTokens: chat.reasoningLevel === "mendalam" ? 8192 : 4096,
           },
@@ -2915,7 +2952,9 @@
 
           const data = await response.json().catch(() => ({}));
           if (!response.ok) {
-            const message = data?.error?.message || `HTTP ${response.status} ${response.statusText}`;
+            const message =
+              data?.error?.message ||
+              `HTTP ${response.status} ${response.statusText}`;
             throw new Error(message);
           }
 
@@ -2995,10 +3034,12 @@
         const lower = String(name || "").toLowerCase();
         if (lower.endsWith(".pdf")) return "application/pdf";
         if (lower.endsWith(".txt")) return "text/plain";
-        if (lower.endsWith(".md") || lower.endsWith(".markdown")) return "text/markdown";
+        if (lower.endsWith(".md") || lower.endsWith(".markdown"))
+          return "text/markdown";
         if (lower.endsWith(".csv")) return "text/csv";
         if (lower.endsWith(".png")) return "image/png";
-        if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
+        if (lower.endsWith(".jpg") || lower.endsWith(".jpeg"))
+          return "image/jpeg";
         if (lower.endsWith(".webp")) return "image/webp";
         if (kind === "audio") return "audio/mpeg";
         return "application/octet-stream";
@@ -3204,5 +3245,40 @@
       renderChatHistory();
       renderAssetGrid();
     </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a16e8dc3dc43582b',t:'MTc4MzM0MDMyNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'a16e8dc3dc43582b',t:'MTc4MzM0MDMyNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
 </html>
